@@ -24,7 +24,7 @@ const theme = createMuiTheme({
   }
 });
 
-function createPageContext() {
+function createPageContext(): PageContext {
   return {
     theme,
     sheetsManager: new Map(),
@@ -33,12 +33,14 @@ function createPageContext() {
   };
 }
 
+let pageContext: PageContext;
+
 export default function getPageContext() {
   if (!(process as any).browser) return createPageContext();
 
-  if (!(global as any).__INIT_MATERIAL_UI__) {
-    (global as any).__INIT_MATERIAL_UI__ = createPageContext();
+  if (!pageContext) {
+    pageContext = createPageContext();
   }
 
-  return (global as any).__INIT_MATERIAL_UI__;
+  return pageContext;
 }

@@ -21,7 +21,6 @@ interface Props extends WithStyles<typeof styles> {
 class Wrapper extends Component<Props> {
   render() {
     const { children, content } = this.props;
-    if (!content || !content.topbar) return "loading...";
 
     return (
       <Fragment>

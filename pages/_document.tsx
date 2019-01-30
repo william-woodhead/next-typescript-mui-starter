@@ -16,10 +16,46 @@ interface Props {
   pageContext: PageContext;
 }
 
-class MyDocument extends Document<Props> {
-  render() {
-    const { pageContext } = this.props;
+interface DocumentIProps extends DefaultDocumentIProps, RenderPageResponse {
+  pageContext: PageContext;
+}
 
+class MyDocument extends Document<Props> {
+  static getInitialProps(ctx: NextDocumentContext): DocumentIProps {
+    let pageContext: PageContext;
+    const page: RenderPageResponse = ctx.renderPage(Component => {
+      const WrappedComponent = (props: any) => {
+        pageContext = props.pageContext;
+        return <Component {...props} />;
+      };
+
+      return WrappedComponent;
+    });
+
+    let css;
+    // @ts-ignore using pageContext before it is declared but the function above runs synchronously so its all fine
+    if (pageContext) {
+      css = pageContext.sheetsRegistry.toString();
+    }
+
+    return {
+      ...page,
+      pageContext,
+      styles: [
+        <React.Fragment key="style">
+          <style
+            id="jss-server-side"
+            dangerouslySetInnerHTML={{
+              __html: css as string
+            }}
+          />
+          {flush() || null}
+        </React.Fragment>
+      ]
+    };
+  }
+
+  render() {
     return (
       <html lang="en" dir="ltr">
         <Head>
@@ -27,10 +63,6 @@ class MyDocument extends Document<Props> {
           <meta
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-          />
-          <meta
-            name="theme-color"
-            content={pageContext.theme.palette.primary.main}
           />
           <link
             rel="stylesheet"
@@ -45,44 +77,5 @@ class MyDocument extends Document<Props> {
     );
   }
 }
-
-interface DocumentIProps extends DefaultDocumentIProps, RenderPageResponse {
-  pageContext: PageContext;
-}
-
-MyDocument.getInitialProps = function(
-  ctx: NextDocumentContext
-): DocumentIProps {
-  let pageContext: PageContext;
-  const page: RenderPageResponse = ctx.renderPage(Component => {
-    const WrappedComponent = (props: any) => {
-      pageContext = props.pageContext;
-      return <Component {...props} />;
-    };
-
-    return WrappedComponent;
-  });
-
-  // @ts-ignore using pageContext before it is declared but the function above runs synchronously so its all fine
-  if (!pageContext) {
-    throw new Error("no page context");
-  }
-
-  return {
-    ...page,
-    pageContext,
-    styles: [
-      <React.Fragment key="style">
-        <style
-          id="jss-server-side"
-          dangerouslySetInnerHTML={{
-            __html: pageContext.sheetsRegistry.toString()
-          }}
-        />
-        {flush() || null}
-      </React.Fragment>
-    ]
-  };
-};
 
 export default MyDocument;
