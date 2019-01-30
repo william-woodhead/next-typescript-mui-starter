@@ -7,23 +7,20 @@ import { MuiThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import JssProvider from "react-jss/lib/JssProvider";
 import getPageContext, { PageContext } from "../src/getPageContext";
-import Wrapper from "../components/wrapper";
-import { Content } from "../models";
+import Wrapper, { ContentType } from "../components/wrapper";
 
 interface Props extends NextAppContext {
   pageProps: PageProps;
-  content: Content;
+  content: ContentType;
 }
 
 interface PageProps {
-  content: Content;
+  content: ContentType;
 }
 
 class MyApp extends App<Props> {
   static async getInitialProps({ Component, ctx }: NextAppContext) {
-    let pageProps: PageProps = {
-      content: { footer: { item: "" }, main: { title: "" } }
-    };
+    let pageProps: any = {};
 
     if (Component.getInitialProps) {
       const newPageProps = await Component.getInitialProps(ctx);

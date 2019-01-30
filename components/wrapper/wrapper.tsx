@@ -5,29 +5,28 @@ import {
   WithStyles,
   withStyles
 } from "@material-ui/core/styles";
-import Footer, { FooterType } from "../footer";
-import Topbar from "../topbar";
+import Topbar, { TopbarType } from "../topbar";
 
 const styles = ({  }: Theme) => createStyles({});
 
-interface Content {
-  footer: FooterType;
+export interface ContentType {
+  topbar: TopbarType;
 }
 
 interface Props extends WithStyles<typeof styles> {
   children: any;
-  content: Content;
+  content: ContentType;
 }
 
 class Wrapper extends Component<Props> {
   render() {
     const { children, content } = this.props;
+    if (!content || !content.topbar) return "loading...";
 
     return (
       <Fragment>
-        <Topbar />
+        <Topbar topbar={content.topbar} />
         {children}
-        <Footer footer={content.footer} />
       </Fragment>
     );
   }

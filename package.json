@@ -1,13 +1,29 @@
 {
   "name": "next-test",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "The simplest possible Next.js Typescript Material UI React Boilerplate I could make.",
   "license": "MIT",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "next dev",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "start": "next start"
   },
+  "author": "William Woodhead",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/william-woodhead/next-typescript-mui-starter"
+  },
+  "homepage": "https://github.com/william-woodhead/next-typescript-mui-starter",
+  "keywords": [
+    "react",
+    "next.js",
+    "universal",
+    "material-ui",
+    "typescript",
+    "boilerplate",
+    "babel"
+  ],
   "dependencies": {
     "@material-ui/core": "^3.2.0",
     "@zeit/next-typescript": "^1.1.1",

@@ -1,11 +1,17 @@
 import React from "react";
 import { NextContext } from "next";
-import { Content } from "../models";
-import Hero from "../components/hero";
-import FloatingBox from "../components/floatingBox";
+import Hero, { HeroType } from "../components/hero";
+
+export interface Main {
+  title: string;
+}
+
+interface ContentType {
+  hero: HeroType;
+}
 
 interface Props {
-  content: Content;
+  content: ContentType;
 }
 
 export default class Home extends React.Component<Props, any> {
@@ -14,11 +20,11 @@ export default class Home extends React.Component<Props, any> {
       setTimeout(() => {
         resolve({
           content: {
-            footer: {
-              item: "Change Language"
+            topbar: {
+              buttonText: "Open sidebar"
             },
-            main: {
-              title: "Hello Page"
+            hero: {
+              title: "Hello App!"
             }
           }
         });
@@ -28,11 +34,10 @@ export default class Home extends React.Component<Props, any> {
 
   render() {
     const { content } = this.props;
+    const { hero } = content;
     return (
       <div>
-        <Hero />
-        <FloatingBox />
-        {content.main.title}
+        <Hero hero={hero} />
       </div>
     );
   }

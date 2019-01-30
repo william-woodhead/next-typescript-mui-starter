@@ -6,21 +6,43 @@ import {
   withStyles
 } from "@material-ui/core/styles";
 
-interface Props extends WithStyles<typeof styles> {}
+export interface HeroType {
+  title: string;
+}
+
+interface Props extends WithStyles<typeof styles> {
+  hero: HeroType;
+}
 
 const styles = ({  }: Theme) =>
   createStyles({
     Hero: {
       width: "100%",
-      minHeight: 400,
-      background: "lightgrey"
+      height: "100vh",
+      background: "lightgrey",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "space-around",
+      fontFamily: "Roboto"
+    },
+    License: {
+      color: "#666666"
+    },
+    Title: {
+      color: "#444444"
     }
   });
 
 class Hero extends Component<Props> {
   render() {
-    const { classes } = this.props;
-    return <div className={classes.Hero}>Hero</div>;
+    const { classes, hero } = this.props;
+    return (
+      <div className={classes.Hero}>
+        <h1 className={classes.Title}>{hero.title}</h1>
+        <div className={classes.License}>William Woodhead - MIT License</div>
+      </div>
+    );
   }
 }
 

@@ -10,12 +10,23 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 
-interface Props extends WithStyles<typeof styles> {}
+export interface TopbarType {
+  buttonText: string;
+}
+
+interface Props extends WithStyles<typeof styles> {
+  topbar: TopbarType;
+}
 
 const styles = ({  }: Theme) =>
   createStyles({
     Drawer: {
-      width: 250
+      width: 250,
+      fontFamily: "Roboto",
+      padding: 10
+    },
+    Toolbar: {
+      flexDirection: "row-reverse"
     }
   });
 
@@ -47,18 +58,20 @@ class Topbar extends Component<Props> {
             onClick={this.curryToggleDrawer.call(this, false)}
             onKeyDown={this.curryToggleDrawer.call(this, false)}
           />
+          <p>Hello modal!</p>
         </div>
       </Drawer>
     );
   }
 
   render() {
+    const { topbar, classes } = this.props;
     return (
       <Fragment>
         <AppBar position="static" color="default">
-          <Toolbar>
+          <Toolbar className={classes.Toolbar}>
             <Button onClick={this.curryToggleDrawer.call(this, true)}>
-              Open
+              {topbar.buttonText}
             </Button>
           </Toolbar>
         </AppBar>
