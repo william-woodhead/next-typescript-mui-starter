@@ -22,7 +22,7 @@ const styles = ({  }: Theme) =>
   createStyles({
     Drawer: {
       width: 250,
-      fontFamily: "Roboto",
+      fontFamily: "Verdana",
       padding: 10
     },
     Toolbar: {

@@ -17,7 +17,7 @@ const styles = ({  }: Theme) =>
       width: "100%",
       display: "flex",
       justifyContent: "center",
-      fontFamily: "Roboto",
+      fontFamily: "Verdana",
       marginTop: 60
     }
   });

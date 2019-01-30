@@ -24,7 +24,7 @@ const styles = ({  }: Theme) =>
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "space-around",
-      fontFamily: "Roboto"
+      fontFamily: "Verdana"
     },
     License: {
       color: "#666666"
