@@ -15,6 +15,9 @@ export interface PageContext {
 }
 
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   palette: {
     primary: {
       light: "#66e1c2",
