@@ -27,7 +27,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.1",
     "@zeit/next-typescript": "^1.1.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "next": "^7.0.2",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
